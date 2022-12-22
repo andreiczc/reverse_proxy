@@ -1,0 +1,5 @@
+{
+  "SAP HANA Database Explorer.enableSapWebAnalytics": false,
+  "SAP HANA Database Explorer.displaySapWebAnalyticsStartupNotification": false,
+  "java.compile.nullAnalysis.mode": "automatic"
+}

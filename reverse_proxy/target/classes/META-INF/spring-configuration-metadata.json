@@ -1,0 +1,17 @@
+{
+  "groups": [
+    {
+      "name": "proxy",
+      "type": "ro.andrei.reverseproxy.config.ProxyConfiguration",
+      "sourceType": "ro.andrei.reverseproxy.config.ProxyConfiguration"
+    }
+  ],
+  "properties": [
+    {
+      "name": "proxy.services",
+      "type": "java.util.List<ro.andrei.reverseproxy.model.ServiceInfo>",
+      "sourceType": "ro.andrei.reverseproxy.config.ProxyConfiguration"
+    }
+  ],
+  "hints": []
+}
