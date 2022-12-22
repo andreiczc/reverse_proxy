@@ -7,14 +7,8 @@ const app = express();
 app.use(express.json());
 app.use(express.text());
 
-app.post("/healthCheck", async (request, response) => {
-  console.log(
-    `Received health check request. Content length ${request.body.length}`
-  );
-
-  response
-    .status(200)
-    .json({ healthy: request.body.length == EXPECTED_REQUEST_BODY_LENGTH });
+app.get("/healthCheck", async (request, response) => {
+  response.status(200).json({ healthy: true });
 });
 
 app.post("/echo", (request, response) => {

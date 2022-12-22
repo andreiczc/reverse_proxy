@@ -3,7 +3,6 @@ package ro.andrei.reverseproxy.config;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
@@ -15,11 +14,9 @@ import ro.andrei.reverseproxy.model.HealthCheck;
 import ro.andrei.reverseproxy.model.HostInfo;
 import ro.andrei.reverseproxy.service.impl.RandomLoadBalancer;
 import ro.andrei.reverseproxy.service.impl.RoundRobinLoadBalancer;
-import ro.andrei.reverseproxy.util.Constants;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -56,7 +53,7 @@ public class ServiceConfigurer {
             service.getHosts().forEach(this::sanitizeUrl);
         }
 
-        executorService.schedule(this::runTcpHealthCheck, 60, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(this::runTcpHealthCheck, 60, 60, TimeUnit.SECONDS);
     }
 
     private void runTcpHealthCheck() {
@@ -70,21 +67,17 @@ public class ServiceConfigurer {
             for (var instance : service.getHosts()) {
                 var uri = String.format("%s://%s:%d/healthCheck",
                         instance.isSecure() ? "https" : "http", instance.getAddress(), instance.getPort());
-                var method = HttpMethod.POST;
+                var method = HttpMethod.GET;
 
-                var bodyContent = new byte[Constants.HEALTH_CHECK_EXPECTED_BODY_LENGTH];
-                Arrays.fill(bodyContent, (byte) 1);
-                var body = new HttpEntity<>(bodyContent);
-
-                var healthCheckResponse = restTemplate.exchange(uri, method, body, HealthCheck.class);
-                if(!healthCheckResponse.hasBody()) {
+                var healthCheckResponse = restTemplate.exchange(uri, method, null, HealthCheck.class);
+                if (!healthCheckResponse.hasBody()) {
                     throw new InstanceNotHealthyException(service.getName(), instance);
                 }
 
                 var healthCheck = healthCheckResponse.getBody();
-                if(healthCheck.isHealthy()) {
+                if (healthCheck.isHealthy()) {
                     log.info("Service {} with instance {}:{} is healthy", service.getName(),
-                                    instance.getAddress(), instance.getPort());
+                            instance.getAddress(), instance.getPort());
                 } else {
                     log.error("Service {} with instance {}:{} is not healthy", service.getName(),
                             instance.getAddress(), instance.getPort());
