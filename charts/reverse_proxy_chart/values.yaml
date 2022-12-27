@@ -1,0 +1,6 @@
+fullname: reverse-proxy
+appName: reverse-proxy-app
+replicaCount: 1
+serviceType: LoadBalancer
+proxyPort: 8080
+exposedPort: 8080

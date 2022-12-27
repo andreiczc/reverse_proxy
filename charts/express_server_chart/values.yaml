@@ -1,0 +1,3 @@
+fullname: express-server
+appName: express-server-app
+replicaCount: 2
