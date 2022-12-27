@@ -37,7 +37,7 @@ Load balancing is enabled by default using a stochastic algorithm, but an opt-in
 
 ## Testing
 
-The `POST /echo` is implemented in the mock express server which echoes the request body. Port `8080` has been exposed when using both k8 and docker-compose, and as such it can be used to issue HTTP calls.
+The `POST /echo` is implemented in the mock express server which echoes the request body. Port `8080` has been exposed when using both k8 and docker-compose, and as such it can be used to issue HTTP calls.\
 e.g. <http://localhost:8080/echo>, having `Host` header equal to `myhost.com` and any request body can be provided
 
 ## Configuration
