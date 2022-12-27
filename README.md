@@ -12,9 +12,10 @@ Load balancing is enabled by default using a stochastic algorithm, but an opt-in
 - Java SE 17.x or greater
 - Maven
 - Docker
-- Kubernetes (Optional)
+- Kubernetes
+- Helm
 
-## Running the test application
+## Building the images
 
 - Clone the repository
 - Change directory to `reverse_proxy`
@@ -22,11 +23,21 @@ Load balancing is enabled by default using a stochastic algorithm, but an opt-in
 - Run `docker build -t reverse_proxy .`
 - Change directory to `express-server`
 - Run `docker build -t express_server .`
+
+## Running the application using Kubernetes
+
+- Change directory to the project root
+- Create the k8 namespace `development` if not created already (`kubectl create namespace development`)
+- Run `helm install chart1 -n development chart`
+
+## Running the application using Docker compose
+
+- Change directory to the project root
 - Spin up the containers by running `docker compose up -d`
 
 ## Testing
 
-The `POST /echo` is implemented in the mock express server which echoes the request body. Port `8080` has been exposed when using docker-compose and as such it can be used to issue HTTP calls.
+The `POST /echo` is implemented in the mock express server which echoes the request body. Port `8080` has been exposed when using both k8 and docker-compose, and as such it can be used to issue HTTP calls.
 e.g. <http://localhost:8080/echo>, having `Host` header equal to `myhost.com` and any request body can be provided
 
 ## Configuration
