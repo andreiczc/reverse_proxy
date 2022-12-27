@@ -2,10 +2,11 @@
 
 ## Description
 
-This is a lightweight reverse proxy solution implemented in Java using Spring Boot 3.0. It is governed by Convention over Configuration and supports a declarative method of defining services, by using `application-prod.yml`.
+This is a lightweight reverse proxy solution implemented in Java using Spring Boot 3.0. It is governed by Convention over Configuration and supports a declarative method of defining services, by using `application-prod.yml`.\
 The routing is done based on the `Host` header, and by default host validation is done, besides downstream and upstream logging at request level. Simple metrics are implemented such as request time.
-All errors are handled using a cross-cutting aspect.
-Load balancing is enabled by default using a stochastic algorithm, but an opt-in Round Robin Load Balancer is also available by setting the `proxy.services.lbPolicy` to `ROUND_ROBIN`. To improve availability and resilience, the app implements TCP health checks by polling the upstream service at the `GET /healthCheck` endpoint. By default, each request doesn't timeout and as such retry isn't attempted. This can be configured per service using `proxy.services.timeout` and `proxy.services.retries`. Multiple upstream hosts can be registered for every service, and a mix of secure and insecure connections can be used.
+All errors are handled using a cross-cutting aspect. \
+Load balancing is enabled by default using a stochastic algorithm, but an opt-in Round Robin Load Balancer is also available by setting the `proxy.services.lbPolicy` to `ROUND_ROBIN`. To improve availability and resilience, the app implements TCP health checks by polling the upstream service at the `GET /healthCheck` endpoint.\
+ By default, each request doesn't timeout and as such retry isn't attempted. This can be configured per service using `proxy.services.timeout` and `proxy.services.retries`. Multiple upstream hosts can be registered for every service, and a mix of secure and insecure connections can be used.
 
 ## System Requirements
 
