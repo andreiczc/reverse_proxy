@@ -1,3 +1,5 @@
 fullname: express-server
 appName: express-server-app
 replicaCount: 2
+appPort: 3000
+exposedPort: 3000

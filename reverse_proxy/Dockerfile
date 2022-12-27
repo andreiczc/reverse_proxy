@@ -11,4 +11,4 @@ ADD target/reverse-proxy-${VERSION}-SNAPSHOT.jar .
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-Dspring.profiles.active=prod", "-jar", "/usr/app/reverse-proxy-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=docker", "-jar", "/usr/app/reverse-proxy-0.0.1-SNAPSHOT.jar"]

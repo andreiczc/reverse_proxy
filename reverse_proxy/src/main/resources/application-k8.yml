@@ -1,0 +1,16 @@
+proxy:
+  listen:
+    address: 127.0.0.1
+    port: 8080
+  services:
+    - name: my-service
+      domain: myhost.com
+      lbPolicy: ROUND_ROBIN
+      retries: 3
+      tcpHealthCheck: true
+      hosts:
+        - address: 10.96.0.20
+          port: 3000
+          secure: false
+server:
+  port: ${proxy.listen.port}

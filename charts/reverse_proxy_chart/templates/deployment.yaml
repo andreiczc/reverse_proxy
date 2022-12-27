@@ -18,6 +18,8 @@ spec:
       - name: reverse-proxy-container
         image: reverse_proxy:latest
         imagePullPolicy: Never
+        command: ["java"]
+        args: ["-Dspring.profiles.active=k8", "-jar", "/usr/app/reverse-proxy-0.0.1-SNAPSHOT.jar"]
         resources:
           limits:
             memory: "64Mi"

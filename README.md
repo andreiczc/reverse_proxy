@@ -12,6 +12,7 @@ Load balancing is enabled by default using a stochastic algorithm, but an opt-in
 - Java SE 17.x or greater
 - Maven
 - Docker
+- Kubernetes (Optional)
 
 ## Running the test application
 
